@@ -1,0 +1,27 @@
+spec:
+  template:
+    spec:
+      containers:
+        - livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: "/actuator/"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: "/actuator/"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: config-map-client-get-status-spring-ms
